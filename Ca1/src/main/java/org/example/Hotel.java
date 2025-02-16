@@ -1,12 +1,21 @@
 package org.example;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Hotel {
+    @JsonProperty("customers")
+
     List<Customer> customers;
+    @JsonProperty("rooms")
+
     List<Room> rooms;
+
+    @JsonProperty("bookings")
+
     List<Booking> bookings;
 
 
@@ -34,6 +43,5 @@ public class Hotel {
             }
         }
         return phoneNumbers;
-
     }
 }

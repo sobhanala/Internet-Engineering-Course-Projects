@@ -11,10 +11,10 @@ import java.util.concurrent.TimeUnit;
 @Getter
 @Setter
 public class Booking {
+
     private UUID ReserveNum;
     private  Customer customer;
     private Room room;
-
     private Timestamp FirstDate;
     private Timestamp SecondDate;
 
