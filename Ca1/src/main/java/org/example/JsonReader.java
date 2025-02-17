@@ -15,4 +15,12 @@ public class    JsonReader {
     public static <T> T readFromString(String jsonString, Class<T> valueType) throws IOException {
         return objectMapper.readValue(jsonString, valueType);
     }
+
+    public static <T> String writeToJsonString(T object) throws IOException {
+        return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(object);
+    }
+
+    public static <T> void writeToFile(String filePath, T object) throws IOException {
+        objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), object);
+    }
 }

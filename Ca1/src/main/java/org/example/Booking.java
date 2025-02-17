@@ -18,6 +18,7 @@ public class Booking {
     private int id;
     @JsonProperty("customer_id")
     private  int customerId;
+
     @JsonProperty("room_id")
     private int roomId;
 
@@ -30,10 +31,13 @@ public class Booking {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime SecondDate;
 
+
+    private Customer customer;
+    private Room room;
+
     public Booking(){
 
     }
-
     public int  getStayDurationInDays(){
         if (FirstDate == null || SecondDate == null) {
             throw new IllegalStateException("Both FirstDate and SecondDate must be set to calculate the stay duration.");
@@ -41,6 +45,7 @@ public class Booking {
 
         return (int) Duration.between(FirstDate, SecondDate).toDays();
     }
+
 
 
 
