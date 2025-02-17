@@ -10,12 +10,15 @@ import lombok.ToString;
 @ToString
 public class Room {
     @JsonProperty("capacity")
-
     private int Capacity;
 
     @JsonProperty("id")
-
     private int RoomNum;
+
+
+    public Room(){
+
+    }
 
     public Room(int cap, int roomNum) {
         if (cap <= 0) {

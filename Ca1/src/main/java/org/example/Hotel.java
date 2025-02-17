@@ -1,23 +1,27 @@
 package org.example;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import lombok.Getter;
+import lombok.Setter;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Getter
+@Setter
 public class Hotel {
     @JsonProperty("customers")
-
     List<Customer> customers;
     @JsonProperty("rooms")
-
     List<Room> rooms;
-
     @JsonProperty("bookings")
-
     List<Booking> bookings;
 
+
+
+    public Hotel(){
+
+    }
 
     public Hotel(List<Customer> customers, List<Room> rooms, List<Booking> bookings) {
         this.customers = customers;
@@ -35,13 +39,15 @@ public class Hotel {
                 .orElse("");
     }
 
-    public List<String> getCustomersPhonesByRoomNumber(int roomNumber){
+
+    public List<String> getCustomersPhonesByRoomNumber(int roomNumber) {
         List<String> phoneNumbers = null;
-        for (Booking booking:bookings){
-            if (booking.getRoom().getRoomNum()==roomNumber) {
-                phoneNumbers.add(booking.getCustomer().getPhoneNumber());
+        for (Booking booking : bookings) {
+            if (booking.getRoomId() == roomNumber) {
+                phoneNumbers.add(customers.get(booking.getCustomerId()).getPhoneNumber());
             }
+            return phoneNumbers;
         }
-        return phoneNumbers;
+        return null;
     }
 }

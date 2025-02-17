@@ -1,5 +1,6 @@
 package org.example;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,11 +24,18 @@ public class Customer {
     @JsonProperty("age")
     private  int Age;
 
+
+
+
     public Customer(String ssn, String phoneNumber , String name, int age){
         this.Age=age;
         this.PhoneNumber=phoneNumber;
         this.Ssn=ssn;
         this.Name=name;
+
+    }
+
+    public Customer(){
 
     }
 }
