@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -77,5 +79,22 @@ public class Hotel {
                     .findFirst()
                     .orElse(null));
         }
+    }
+
+    public void logState(String filePath) throws IOException {
+        List<OutPutHotel>tempRooms=new ArrayList<>();
+        for (Room room :rooms){
+            OutPutHotel outPutHotel = new OutPutHotel();
+            outPutHotel.capacity=room.getCapacity();
+            outPutHotel.roomId= room.getRoomNum();
+            outPutHotel.bookings=bookings.stream().filter(booking -> booking.getRoomId()==room.getRoomNum()).map(booking -> new BookingDto(
+                    booking.getId(),
+                    booking.getCustomer(),
+                    booking.getFirstDate(),
+                    booking.getSecondDate())).collect(Collectors.toList());
+            tempRooms.add(outPutHotel);
+        }
+        JsonReader.writeToFile(filePath,tempRooms);
+
     }
 }
