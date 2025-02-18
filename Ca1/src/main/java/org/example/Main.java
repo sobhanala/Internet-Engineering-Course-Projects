@@ -17,7 +17,7 @@ public class Main {
             hotelData.logState(filePath2);
 
         } catch (IOException e) {
-            e.getCause();
+            e.printStackTrace();
         }
     }
 }

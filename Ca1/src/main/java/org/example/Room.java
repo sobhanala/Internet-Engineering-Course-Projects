@@ -1,37 +1,45 @@
 package org.example;
 
+import Exeptions.ValidationException;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-
-@Setter
 @Getter
+@Setter
 @ToString
 public class Room {
+
     @JsonProperty("capacity")
     private int Capacity;
 
-    @JsonProperty("id")
+    @JsonProperty("roomNum")
     private int RoomNum;
 
-    public Room(){
-
+    @JsonCreator
+    public Room(
+            @JsonProperty("capacity") int capacity,
+            @JsonProperty("roomNum") int roomNum) {
+        setCapacity(capacity);
+        setRoomNum(roomNum);
     }
 
-    public Room(int cap, int roomNum) {
-        if (cap <= 0) {
-            throw new IllegalArgumentException("Capacity must be a positive integer.");
-        }
-        if (roomNum <= 0) {
-            throw new IllegalArgumentException("Room number must be a positive integer.");
-        }
+    public Room() {
+    }
 
-        this.Capacity = cap;
+    public void setCapacity(int capacity) {
+        if (capacity <= 0) {
+            throw new ValidationException("Capacity must be a positive integer.");
+        }
+        this.Capacity = capacity;
+    }
+
+    public void setRoomNum(int roomNum) {
+        if (roomNum <= 0) {
+            throw new ValidationException("Room number must be a positive integer.");
+        }
         this.RoomNum = roomNum;
     }
-
-
-
 }

@@ -1,5 +1,6 @@
 package org.example;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,22 +17,41 @@ import java.util.stream.Collectors;
 public class Hotel {
 
     @JsonProperty("customers")
-    List<Customer> customers;
+    private List<Customer> customers;
 
     @JsonProperty("rooms")
-    List<Room> rooms;
+    private List<Room> rooms;
 
     @JsonProperty("bookings")
-    List<Booking> bookings;
+    private List<Booking> bookings;
 
-    public Hotel() {
+    @JsonCreator
+    public Hotel(
+            @JsonProperty("customers") List<Customer> customers,
+            @JsonProperty("rooms") List<Room> rooms,
+            @JsonProperty("bookings") List<Booking> bookings) {
+        setCustomers(customers);
+        setRooms(rooms);
+        setBookings(bookings);
+        mapBookings();
     }
 
-    public Hotel(List<Customer> customers, List<Room> rooms, List<Booking> bookings) {
+    public Hotel() {
+        this.customers = new ArrayList<>();
+        this.rooms = new ArrayList<>();
+        this.bookings = new ArrayList<>();
+    }
+
+    @JsonProperty("customers")
+    public void setCustomers(List<Customer> customers) {
+
         this.customers = customers;
+    }
+
+    @JsonProperty("rooms")
+    public void setRooms(List<Room> rooms) {
+
         this.rooms = rooms;
-        this.bookings = bookings;
-        mapBookings();
     }
 
     @JsonProperty("bookings")
@@ -82,19 +102,21 @@ public class Hotel {
     }
 
     public void logState(String filePath) throws IOException {
-        List<OutPutHotel>tempRooms=new ArrayList<>();
-        for (Room room :rooms){
+        List<OutPutHotel> tempRooms = new ArrayList<>();
+        for (Room room : rooms) {
             OutPutHotel outPutHotel = new OutPutHotel();
-            outPutHotel.capacity=room.getCapacity();
-            outPutHotel.roomId= room.getRoomNum();
-            outPutHotel.bookings=bookings.stream().filter(booking -> booking.getRoomId()==room.getRoomNum()).map(booking -> new BookingDto(
-                    booking.getId(),
-                    booking.getCustomer(),
-                    booking.getFirstDate(),
-                    booking.getSecondDate())).collect(Collectors.toList());
+            outPutHotel.capacity = room.getCapacity();
+            outPutHotel.roomId = room.getRoomNum();
+            outPutHotel.bookings = bookings.stream()
+                    .filter(booking -> booking.getRoomId() == room.getRoomNum())
+                    .map(booking -> new BookingDto(
+                            booking.getId(),
+                            booking.getCustomer(),
+                            booking.getFirstDate(),
+                            booking.getSecondDate()))
+                    .collect(Collectors.toList());
             tempRooms.add(outPutHotel);
         }
-        JsonReader.writeToFile(filePath,tempRooms);
-
+        JsonReader.writeToFile(filePath, tempRooms);
     }
 }
