@@ -1,0 +1,16 @@
+[ {
+  "roomId" : 1,
+  "capacity" : 3,
+  "bookings" : [ {
+    "id" : 1,
+    "customer" : {
+      "ssn" : "1234567890",
+      "phone" : "09101231212",
+      "name" : "Example Name",
+      "age" : 18,
+      "phoneNumber" : "09101231212"
+    },
+    "checkInDate" : "2024-01-01T08:00:00",
+    "checkOutDate" : "2024-01-02T16:00:00"
+  } ]
+} ]
