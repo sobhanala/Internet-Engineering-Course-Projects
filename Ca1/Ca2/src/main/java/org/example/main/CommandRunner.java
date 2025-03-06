@@ -1,8 +1,9 @@
 package org.example.main;
 
+import Business.BookService;
 import Business.ICommand;
 import Business.ShopService;
-import Business.WalletService;
+import Business.UserService;
 import Business.commands.*;
 import Infrastucure.JsonParser;
 import Objects.Response;
@@ -15,19 +16,21 @@ public class CommandRunner {
     private final JsonParser jsonParser;
     private final Map<String, ICommand> commandMap;
 
-    public CommandRunner(JsonParser jsonParser, ShopService shopService,WalletService walletService) {
+    public CommandRunner(JsonParser jsonParser, ShopService shopService,BookService bookService,UserService userService) {
         this.jsonParser = jsonParser;
-        this.commandMap = initializeCommands(shopService,walletService);
+        this.commandMap = initializeCommands(shopService,bookService,userService);
     }
 
-    private Map<String, ICommand> initializeCommands(ShopService shopService, WalletService walletService) {
+    private Map<String, ICommand> initializeCommands(ShopService shopService, BookService bookService, UserService userService) {
         Map<String, ICommand> commands = new HashMap<>();
-        commands.put("add_user", new AddUserCommand(shopService));
-        commands.put("add_author", new AddAuthorCommand(shopService));
-        commands.put("add_book", new AddBookCommand(shopService));
+        commands.put("add_user", new AddUserCommand(userService));
+        commands.put("add_author", new AddAuthorCommand(userService));
+        commands.put("add_book", new AddBookCommand(bookService));
         commands.put("add_cart", new AddCartCommand(shopService));
         commands.put("remove_cart", new RemoveCartCommand(shopService));
-        commands.put("add_credit", new AddCreditCommand(walletService));
+        commands.put("add_credit", new AddCreditCommand(shopService));
+        commands.put("purchase_cart", new PurchaseCartCommand(shopService));
+
 
         return commands;
     }
@@ -52,20 +55,19 @@ public class CommandRunner {
     private void executeCommand(String commandName, String jsonInput) {
         ICommand command = commandMap.get(commandName);
         if (command == null) {
-            respond(false, "Unknown command: " + commandName, null);
             return;
         }
 
         try {
             Object dto = jsonParser.deserialize(jsonInput, command.getDtoClass());
-            String result = command.execute(dto); // Command handles mapping and calls ShopService
-            respond(true, "Command executed successfully", result);
+            Response result = command.execute(dto);
+            respond(result);
         } catch (Exception e) {
-            respond(false, "Invalid input: " + e.getMessage(), null);
+            respond(new Response(false, e.getMessage(), null));//TODO
         }
     }
 
-    private void respond(boolean success, String message, String data) {
-        System.out.println(jsonParser.serialize(new Response(success, message, data)));
+    private void respond(Response response) {
+        System.out.println(jsonParser.serialize(response));
     }
 }

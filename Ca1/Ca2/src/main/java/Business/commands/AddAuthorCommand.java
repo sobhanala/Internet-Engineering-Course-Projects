@@ -1,24 +1,27 @@
 package Business.commands;
 
 import Business.ICommand;
-import Business.ShopService;
+import Business.UserService;
 import Business.models.Author;
 import Infrastucure.Mapper;
 import Objects.AuthorDto;
-public class AddAuthorCommand implements ICommand {
-    private final ShopService shopService;
+import Objects.Response;
 
-    public AddAuthorCommand(ShopService shopService) {
-        this.shopService = shopService;
+public class AddAuthorCommand implements ICommand {
+    private final UserService userService;
+
+    public AddAuthorCommand(UserService userService) {
+        this.userService = userService;
     }
 
     @Override
-    public String execute(Object dto) throws Exception {
+    public Response execute(Object dto) throws Exception {
         if (!(dto instanceof AuthorDto)) {
             throw new IllegalArgumentException("Expected AuthorDto");
         }
         Author author = Mapper.toAuthorObject((AuthorDto) dto);
-        return shopService.addAuthor(author);
+        userService.addAuthor(author);
+        return new Response(true,"Removed book from cart.","");
     }
 
     @Override

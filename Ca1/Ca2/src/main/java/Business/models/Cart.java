@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 public class Cart {
-    private List<Book> books;
+    public List<Book> books;
     public Cart() {
     }
     public void AddToCart(Book book) {

@@ -1,6 +1,8 @@
 package Business;
 
+import Objects.Response;
+
 public interface ICommand {
-    String execute(Object dto) throws Exception;
+    Response execute(Object dto) throws Exception;
      Class<?> getDtoClass();
 }

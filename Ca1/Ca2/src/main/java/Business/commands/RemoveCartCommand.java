@@ -5,6 +5,7 @@ import Business.ShopService;
 import Business.models.PendPurches;
 import Infrastucure.Mapper;
 import Objects.CartDto;
+import Objects.Response;
 
 public class RemoveCartCommand implements ICommand {
     private final ShopService shopService;
@@ -14,14 +15,16 @@ public class RemoveCartCommand implements ICommand {
     }
 
     @Override
-    public String execute(Object dto) throws Exception {
+    public Response execute(Object dto) throws Exception {
         if (!(dto instanceof CartDto)) {
             throw new IllegalArgumentException("Expected AuthorDto");
         }
         PendPurches cart= Mapper.ToPendPurches((CartDto) dto);
 
-        return shopService.removeCart(cart);
-    }
+         shopService.removeCart(cart);
+        return new Response(true,"Removed book from cart.","");
+
+        }
 
     @Override
     public Class<?> getDtoClass() {
