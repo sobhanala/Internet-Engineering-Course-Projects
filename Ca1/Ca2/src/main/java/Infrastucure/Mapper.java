@@ -1,6 +1,10 @@
-package Objects;
+package Infrastucure;
 
 import Business.models.*;
+import Objects.AddressDto;
+import Objects.AuthorDto;
+import Objects.BookDto;
+import Objects.PersonDto;
 
 public class Mapper {
 
@@ -46,11 +50,13 @@ public class Mapper {
         if (authorDto == null) {
             throw new IllegalArgumentException("Invalid author data.");
         }
+
         return new Author(
                 authorDto.getUsername(),
                 authorDto.getName(),
                 authorDto.getPenName(),
-                authorDto.getBorn()
+                authorDto.getBorn(),
+                authorDto.getDied()
         );
     }
 
@@ -63,4 +69,5 @@ public class Mapper {
                 addressDto.getCountry()
         );
     }
+
 }

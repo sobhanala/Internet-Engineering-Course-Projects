@@ -26,6 +26,12 @@ public class AuthorDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date born;
 
+    @JsonProperty("died")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+
+    private Date died;
+
+
     public AuthorDto() {
     }
 }

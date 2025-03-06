@@ -1,28 +1,34 @@
 package org.example.main;
 
-import Business.models.Author;
-import Business.models.Book;
-import Business.models.DataLoader;
-import Business.models.Person;
+import Business.ICommand;
+import Business.ShopService;
+import Business.commands.AddAuthorCommand;
+import Business.commands.AddBookCommand;
+import Business.commands.AddCartCommand;
+import Business.commands.AddUserCommand;
 import Infrastucure.JsonParser;
-import Objects.*;
+import Objects.Response;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.function.Function;
-
 
 public class CommandRunner {
     private final JsonParser jsonParser;
+    private final Map<String, ICommand> commandMap;
 
-    private final Map<String, CommandHandler<?>> commandHandlers = Map.of(
-            "add_user", new CommandHandler<>(PersonDto.class, Mapper::toPersonObject),
-            "add_author", new CommandHandler<>(AuthorDto.class, Mapper::toAuthorObject),
-            "add_book", new CommandHandler<>(BookDto.class, Mapper::toBookObject)
-    );
-
-    public CommandRunner(JsonParser jsonParser) {
+    public CommandRunner(JsonParser jsonParser, ShopService shopService) {
         this.jsonParser = jsonParser;
+        this.commandMap = initializeCommands(shopService);
+    }
+
+    private Map<String, ICommand> initializeCommands(ShopService shopService) {
+        Map<String, ICommand> commands = new HashMap<>();
+        commands.put("add_user", new AddUserCommand(shopService));
+        commands.put("add_author", new AddAuthorCommand(shopService));
+        commands.put("add_book", new AddBookCommand(shopService));
+        commands.put("add_cart", new AddCartCommand(shopService));
+        return commands;
     }
 
     public void start() {
@@ -37,40 +43,28 @@ public class CommandRunner {
 
     private void processCommand(String line) {
         int spaceIndex = line.indexOf(" ");
-        String command = (spaceIndex == -1) ? line : line.substring(0, spaceIndex);
+        String commandName = (spaceIndex == -1) ? line : line.substring(0, spaceIndex);
         String jsonInput = (spaceIndex == -1) ? "{}" : line.substring(spaceIndex + 1);
-        handleCommand(command, jsonInput);
+        executeCommand(commandName, jsonInput);
     }
 
-    private <T> void handleCommand(String command, String jsonInput) {
-        CommandHandler<T> handler = (CommandHandler<T>) commandHandlers.get(command);
-
-        if (handler == null) {
-            System.out.println(jsonParser.serialize(new Response(false, "Unknown command: " + command, null)));
+    private void executeCommand(String commandName, String jsonInput) {
+        ICommand command = commandMap.get(commandName);
+        if (command == null) {
+            respond(false, "Unknown command: " + commandName, null);
             return;
         }
+
         try {
-            T dto = jsonParser.deserialize(jsonInput, handler.dtoClass());
-            System.out.println("DTO: " + dto);
-
-            Object mappedObject = handler.mapper.apply(dto);
-            System.out.println("Mapped Object: " + mappedObject);
-
-            if (command.equals("add_user")) {
-                DataLoader.usersList.add((Person) mappedObject);
-            } else if (command.equals("add_author")) {
-                DataLoader.authorList.add((Author) mappedObject);
-            } else if (command.equals("add_book")) {
-                DataLoader.bookList.add((Book) mappedObject);
-            }
-            DataLoader.usersList.forEach(System.out::println);
-            System.out.println(jsonParser.serialize(new Response(true, "Command executed", dto)));
-
+            Object dto = jsonParser.deserialize(jsonInput, command.getDtoClass());
+            String result = command.execute(dto); // Command handles mapping and calls ShopService
+            respond(true, "Command executed successfully", result);
         } catch (Exception e) {
-            e.printStackTrace(); // Debugging
-            System.out.println(jsonParser.serialize(new Response(false, "Invalid input: " + e.getMessage(), null)));
+            respond(false, "Invalid input: " + e.getMessage(), null);
         }
     }
 
-    private record CommandHandler<T>(Class<T> dtoClass, Function<T, ?> mapper) {}
+    private void respond(boolean success, String message, String data) {
+        System.out.println(jsonParser.serialize(new Response(success, message, data)));
+    }
 }

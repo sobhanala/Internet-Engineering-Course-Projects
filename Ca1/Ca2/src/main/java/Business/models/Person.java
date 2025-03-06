@@ -1,5 +1,6 @@
 package Business.models;
 
+import Business.DataLoader;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -29,13 +30,17 @@ public class Person {
         setEmail(email);
         setAddress(address);
         this.walletBalance = 0.0;
+        boolean b = DataLoader.CheckUserUniqneness(username, email);
+        if (b) {
+            throw new IllegalArgumentException("User already exists");
+        }
     }
 
     private void setUsername(String username) {
         if (username == null || username.isEmpty() || !USERNAME_PATTERN.matcher(username).matches()) {
             throw new IllegalArgumentException("Invalid username: Only letters, numbers, '-', and '_' are allowed.");
         }
-        //TODO check the uniqueness of the  username
+
         this.username = username;
     }
 

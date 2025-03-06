@@ -10,9 +10,9 @@ import lombok.Setter;
 public class AddressDto {
 
     @JsonProperty("city")
-    public String City;
+    private  String City;
     @JsonProperty("country")
-    public String Country;
+    private  String Country;
 
 
     public AddressDto() {

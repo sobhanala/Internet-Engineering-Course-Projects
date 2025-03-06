@@ -15,14 +15,16 @@ public class Author {
     private String name;
     private String penName;
     private Date born;
+    private Date died;
 
     public Author() {
     }
 
-    public Author(String username, String name, String penName, Date born) {
+    public Author(String username, String name, String penName, Date born,Date died) {
         this.username = username;
         this.name = name;
         this.penName = penName;
         this.born = born;
+        this.died=died;
     }
 }
