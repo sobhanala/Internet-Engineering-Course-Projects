@@ -6,7 +6,6 @@ import Business.models.Person;
 import Infrastucure.Mapper;
 import Objects.PersonDto;
 
-// Concrete command implementations
 public class AddUserCommand implements ICommand {
     private final ShopService shopService;
 
@@ -19,8 +18,9 @@ public class AddUserCommand implements ICommand {
         if (!(dto instanceof PersonDto)) {
             throw new IllegalArgumentException("Expected PersonDto");
         }
-        Person person = Mapper.toPersonObject((PersonDto) dto); // Mapping here
-        return shopService.addUser(person); // Pass business entity to service
+            Person person = Mapper.toPersonObject((PersonDto) dto);
+            return shopService.addUser(person);
+
     }
 
     @Override

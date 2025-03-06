@@ -13,6 +13,13 @@ public class Customer extends Person {
     public Customer(String username, String password, String email, Address address) {
         super(username, password, email, address);
     }
+    public void AddToCart(Book book){
+        cart.AddToCart(book);
+    }
+    public void RemoveFromCart(Book book){
+        cart.RemoveFromCart(book);
+    }
+
 
 
 }

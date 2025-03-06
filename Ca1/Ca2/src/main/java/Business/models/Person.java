@@ -1,6 +1,5 @@
 package Business.models;
 
-import Business.DataLoader;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -16,6 +15,7 @@ public class Person {
     private Address address;
     @Getter
     private double walletBalance;
+    private Cart cart;
 
     private static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z0-9_-]+$");
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
@@ -30,10 +30,7 @@ public class Person {
         setEmail(email);
         setAddress(address);
         this.walletBalance = 0.0;
-        boolean b = DataLoader.CheckUserUniqneness(username, email);
-        if (b) {
-            throw new IllegalArgumentException("User already exists");
-        }
+        cart=new Cart();
     }
 
     private void setUsername(String username) {
@@ -64,5 +61,6 @@ public class Person {
         }
         this.address = address;
     }
+
 
 }

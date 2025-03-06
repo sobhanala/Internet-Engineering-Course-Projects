@@ -2,10 +2,7 @@ package org.example.main;
 
 import Business.ICommand;
 import Business.ShopService;
-import Business.commands.AddAuthorCommand;
-import Business.commands.AddBookCommand;
-import Business.commands.AddCartCommand;
-import Business.commands.AddUserCommand;
+import Business.commands.*;
 import Infrastucure.JsonParser;
 import Objects.Response;
 
@@ -28,6 +25,8 @@ public class CommandRunner {
         commands.put("add_author", new AddAuthorCommand(shopService));
         commands.put("add_book", new AddBookCommand(shopService));
         commands.put("add_cart", new AddCartCommand(shopService));
+        commands.put("remove_cart", new RemoveCartCommand(shopService));
+
         return commands;
     }
 

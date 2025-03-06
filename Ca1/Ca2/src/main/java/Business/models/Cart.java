@@ -19,7 +19,13 @@ public class Cart {
         else {
             throw new IllegalArgumentException("Cart is full");
         }
-
+    }
+    public void RemoveFromCart(Book book) {
+        if (!books.isEmpty()) {
+            books.remove(book);
+        } else {
+            throw new IllegalArgumentException("Cart is Empty");
+        }
     }
 
 

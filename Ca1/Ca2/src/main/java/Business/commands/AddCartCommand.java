@@ -2,10 +2,8 @@ package Business.commands;
 
 import Business.ICommand;
 import Business.ShopService;
-import Business.models.Book;
+import Business.models.PendPurches;
 import Infrastucure.Mapper;
-import Objects.AuthorDto;
-import Objects.BookDto;
 import Objects.CartDto;
 
 public class AddCartCommand implements ICommand {
@@ -17,11 +15,12 @@ public class AddCartCommand implements ICommand {
 
     @Override
     public String execute(Object dto) throws Exception {
-        if (!(dto instanceof AuthorDto)) {
+        if (!(dto instanceof CartDto)) {
             throw new IllegalArgumentException("Expected AuthorDto");
         }
-        Book book = Mapper.toBookObject((BookDto) dto);
-        return shopService.addBook(book);
+
+        PendPurches cart= Mapper.ToPendPurches((CartDto) dto);
+        return shopService.addCart(cart);
     }
 
     @Override

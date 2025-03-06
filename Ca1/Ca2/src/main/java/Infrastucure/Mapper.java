@@ -1,10 +1,7 @@
 package Infrastucure;
 
 import Business.models.*;
-import Objects.AddressDto;
-import Objects.AuthorDto;
-import Objects.BookDto;
-import Objects.PersonDto;
+import Objects.*;
 
 public class Mapper {
 
@@ -69,5 +66,14 @@ public class Mapper {
                 addressDto.getCountry()
         );
     }
+    public static PendPurches ToPendPurches(CartDto cartDto){
+        if (cartDto == null) {
+            return null;
+        }
+        return new PendPurches(
+                cartDto.getUsername(),
+                cartDto.getTitle()
+        );
 
+    }
 }

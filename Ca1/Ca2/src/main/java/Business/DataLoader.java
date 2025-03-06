@@ -41,4 +41,11 @@ public class DataLoader {
     public static  Book getBookByTitle(String title){
         return bookList.stream().filter(b -> b.getTitle().equals(title)).findAny().orElse(null);
     }
+    public static boolean CheckAuthorUniqneness(String username){
+        return authorList.stream().filter(author -> author.getUsername().equals(username) ).findFirst().orElse(null) != null;
+    }
+    public static boolean CheckBookUniqneness(String bookname){
+        return bookList.stream().filter(book -> book.getUsername().equals(bookname) ).findFirst().orElse(null) != null;
+    }
+
 }
