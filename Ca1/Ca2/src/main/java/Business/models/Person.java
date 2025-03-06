@@ -9,16 +9,15 @@ import java.util.regex.Pattern;
 @ToString
 public class Person {
 
-    private String username;
-    private String password;
-    private String email;
-    private Address address;
+    protected String username;
+    protected String password;
+    protected String email;
+    protected Address address;
     @Getter
-    private double walletBalance;
-    private Cart cart;
+    protected double walletBalance;
 
-    private static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z0-9_-]+$");
-    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
+    protected static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z0-9_-]+$");
+    protected static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
 
     public Person() {
         this.walletBalance = 0.0;
@@ -30,7 +29,6 @@ public class Person {
         setEmail(email);
         setAddress(address);
         this.walletBalance = 0.0;
-        cart=new Cart();
     }
 
     private void setUsername(String username) {

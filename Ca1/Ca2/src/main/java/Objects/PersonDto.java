@@ -25,7 +25,6 @@ public class PersonDto {
     @JsonProperty("role")
     private String role;
 
-
     public PersonDto() {
     }
 }

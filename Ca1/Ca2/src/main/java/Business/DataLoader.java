@@ -1,5 +1,6 @@
 package Business;
 
+import Business.models.Address;
 import Business.models.Author;
 import Business.models.Book;
 import Business.models.Person;
@@ -7,6 +8,7 @@ import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @ToString
 public class DataLoader {
@@ -18,34 +20,48 @@ public class DataLoader {
         throw new UnsupportedOperationException("DataLoader is a static utility class and cannot be instantiated.");
     }
     static {
-        bookList.add(new Book());
-        usersList.add(new Person());
-        authorList.add(new Author());
+            bookList.add(new Book(" ", " "," "," ",0,0.0," "," ",new ArrayList<>()));
+            usersList.add(new Person("defaultUser", "defaultEmail@gmail.com", "defaultEmail@gmail.com", new Address("defaultCountry", "defaultCity")));
+            authorList.add(new Author("defaultUsername", "defaultName", "defaultPenName", null, null));
     }
-    public static boolean CheckUserUniqneness(String username, String email){
-        return usersList.stream().filter(person -> person.getUsername().equals(username) && person.getEmail().equals(email)).findFirst().orElse(null) != null;
+    public static boolean checkUserUniqueness(String username, String email) {
+        return usersList.stream()
+                .anyMatch(person -> person.getUsername().equals(username)
+                        && person.getEmail().equals(email));
     }
 
-    public static void AddBook(Book book){
+    public static void addBook(Book book) {
         bookList.add(book);
     }
-    public static  void AddUser(Person person){
+
+    public static void addUser(Person person) {
         usersList.add(person);
     }
-    public static  void AddAuthor(Author author){
+
+    public static void addAuthor(Author author) {
         authorList.add(author);
     }
-    public static Person getUserByUsername(String username){
-        return usersList.stream().filter(p -> p.getUsername().equals(username)).findAny().orElse(null);
+
+    public static Optional<Person> getUserByUsername(String username) {
+        return usersList.stream()
+                .filter(p -> p.getUsername().equals(username))
+                .findAny();
     }
-    public static  Book getBookByTitle(String title){
-        return bookList.stream().filter(b -> b.getTitle().equals(title)).findAny().orElse(null);
+
+    public static Optional<Book> getBookByTitle(String title) {
+        return bookList.stream()
+                .filter(b -> b.getTitle().equals(title))
+                .findAny();
     }
-    public static boolean CheckAuthorUniqneness(String username){
-        return authorList.stream().filter(author -> author.getUsername().equals(username) ).findFirst().orElse(null) != null;
+
+    public static boolean checkAuthorUniqueness(String username) {
+        return authorList.stream()
+                .anyMatch(author -> author.getUsername().equals(username));
     }
-    public static boolean CheckBookUniqneness(String bookname){
-        return bookList.stream().filter(book -> book.getUsername().equals(bookname) ).findFirst().orElse(null) != null;
+
+    public static boolean checkBookUniqueness(String bookname) {
+        return bookList.stream()
+                .anyMatch(book -> book.getTitle().equals(bookname));
     }
 
 }

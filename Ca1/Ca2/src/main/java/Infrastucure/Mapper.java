@@ -76,4 +76,14 @@ public class Mapper {
         );
 
     }
+    public static Transaction ToTransaction(AddCreditDto creditDto){
+        if (creditDto == null) {
+            return null;
+        }
+        return new Transaction(
+                creditDto.getUsername(),
+                creditDto.getCredit()
+        );
+
+    }
 }

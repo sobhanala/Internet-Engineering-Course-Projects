@@ -2,6 +2,7 @@ package org.example.main;
 
 import Business.ICommand;
 import Business.ShopService;
+import Business.WalletService;
 import Business.commands.*;
 import Infrastucure.JsonParser;
 import Objects.Response;
@@ -14,18 +15,19 @@ public class CommandRunner {
     private final JsonParser jsonParser;
     private final Map<String, ICommand> commandMap;
 
-    public CommandRunner(JsonParser jsonParser, ShopService shopService) {
+    public CommandRunner(JsonParser jsonParser, ShopService shopService,WalletService walletService) {
         this.jsonParser = jsonParser;
-        this.commandMap = initializeCommands(shopService);
+        this.commandMap = initializeCommands(shopService,walletService);
     }
 
-    private Map<String, ICommand> initializeCommands(ShopService shopService) {
+    private Map<String, ICommand> initializeCommands(ShopService shopService, WalletService walletService) {
         Map<String, ICommand> commands = new HashMap<>();
         commands.put("add_user", new AddUserCommand(shopService));
         commands.put("add_author", new AddAuthorCommand(shopService));
         commands.put("add_book", new AddBookCommand(shopService));
         commands.put("add_cart", new AddCartCommand(shopService));
         commands.put("remove_cart", new RemoveCartCommand(shopService));
+        commands.put("add_credit", new AddCreditCommand(walletService));
 
         return commands;
     }
