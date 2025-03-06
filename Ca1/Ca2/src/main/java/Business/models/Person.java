@@ -13,22 +13,15 @@ public class Person {
     protected String password;
     protected String email;
     protected Address address;
-    @Getter
-    protected double walletBalance;
 
     protected static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z0-9_-]+$");
     protected static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
-
-    public Person() {
-        this.walletBalance = 0.0;
-    }
 
     public Person(String username, String password, String email, Address address) {
         setUsername(username);
         setPassword(password);
         setEmail(email);
         setAddress(address);
-        this.walletBalance = 0.0;
     }
 
     private void setUsername(String username) {

@@ -1,7 +1,7 @@
 package Business.commands;
 
 import Business.ICommand;
-import Business.ShopService;
+import Business.services.ShopService;
 import Objects.CartDto;
 import Objects.PurchesDto;
 import Objects.Response;

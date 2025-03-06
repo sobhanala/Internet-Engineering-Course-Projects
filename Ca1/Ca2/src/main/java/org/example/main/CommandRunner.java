@@ -1,9 +1,9 @@
 package org.example.main;
 
-import Business.BookService;
+import Business.services.BookService;
 import Business.ICommand;
-import Business.ShopService;
-import Business.UserService;
+import Business.services.ShopService;
+import Business.services.UserService;
 import Business.commands.*;
 import Infrastucure.JsonParser;
 import Objects.Response;
@@ -28,7 +28,7 @@ public class CommandRunner {
         commands.put("add_book", new AddBookCommand(bookService));
         commands.put("add_cart", new AddCartCommand(shopService));
         commands.put("remove_cart", new RemoveCartCommand(shopService));
-        commands.put("add_credit", new AddCreditCommand(shopService));
+        commands.put("add_credit", new AddCreditCommand(userService));
         commands.put("purchase_cart", new PurchaseCartCommand(shopService));
 
 

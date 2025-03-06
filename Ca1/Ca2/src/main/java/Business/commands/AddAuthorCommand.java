@@ -1,7 +1,7 @@
 package Business.commands;
 
 import Business.ICommand;
-import Business.UserService;
+import Business.services.UserService;
 import Business.models.Author;
 import Infrastucure.Mapper;
 import Objects.AuthorDto;

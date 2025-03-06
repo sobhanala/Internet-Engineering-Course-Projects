@@ -1,7 +1,7 @@
 package Business.commands;
 
 import Business.ICommand;
-import Business.ShopService;
+import Business.services.UserService;
 import Business.models.Transaction;
 import Infrastucure.Mapper;
 import Objects.AddCreditDto;
@@ -9,10 +9,10 @@ import Objects.CartDto;
 import Objects.Response;
 
 public class AddCreditCommand implements ICommand {
-    private final ShopService shopService;
+    private final UserService userService;
 
-    public AddCreditCommand(ShopService shopService) {
-        this.shopService = shopService;
+    public AddCreditCommand(UserService userService) {
+        this.userService = userService;
     }
 
     @Override
@@ -22,7 +22,7 @@ public class AddCreditCommand implements ICommand {
         }
 
         Transaction transaction= Mapper.ToTransaction((AddCreditDto) dto);
-        shopService.addCredit(transaction);
+        userService.addCredit(transaction);
         return new Response(true,"Credit added successfully","");
     }
 

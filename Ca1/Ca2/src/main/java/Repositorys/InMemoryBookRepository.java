@@ -9,7 +9,7 @@ public class InMemoryBookRepository implements BookRepository {
     private final List<Book> bookList = new ArrayList<>();
 
     public InMemoryBookRepository() {
-        bookList.add(new Book(" ", " ", " ", " ", 0, 0.0, " ", " ", new ArrayList<>()));
+        bookList.add(new Book(" ", " ", " ", " ", 0, 0, " ", " ", new ArrayList<>()));
     }
 
     @Override

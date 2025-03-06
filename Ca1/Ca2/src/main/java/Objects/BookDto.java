@@ -28,7 +28,7 @@ public class BookDto {
     private int year;
 
     @JsonProperty("price")
-    private double price;
+    private long price;
 
     @JsonProperty("synopsis")
     private String synopsis;

@@ -16,7 +16,7 @@ public class Book {
     private String author;
     private String publisher;
     private int year;
-    private double price;
+    private long price;
     private String synopsis;
     private String content;
     private List<String> genres;
@@ -24,7 +24,7 @@ public class Book {
     public Book() {
     }
 
-    public Book(String username, String title, String author, String publisher, int year, double price, String synopsis, String content, List<String> genres) {
+    public Book(String username, String title, String author, String publisher, int year, long price, String synopsis, String content, List<String> genres) {
         this.username = username;
         this.title = title;
         this.author = author;
