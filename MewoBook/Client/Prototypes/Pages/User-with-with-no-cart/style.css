@@ -201,49 +201,6 @@ body{
     border-radius: 5px;
 }
 
-.table {
-    border-collapse: collapse;
-}
-
-.table th {
-    color: #6c757d;
-    font-weight: normal;
-}
-
-.btn-outline-secondary {
-    border-radius: 6px;
-    padding: 5px 10px;
-}
-
-.btn-dark {
-    border-radius: 6px;
-    padding: 5px 10px;
-    background-color: #0d3b25;
-    border: none;
-}
-
-.btn-dark:hover {
-    background-color: #0b2d1f;
-}
-
-.btn-purchase {
-    background-color: #0d3b25 !important;
-    color: white !important;
-    padding: 10px 16px!important;
-    font-size: 16px !important;
-    border-radius: 8px !important;
-}
-
-.btn-purchase:focus {
-    box-shadow: none !important;
-    border: none !important;
-}
-
-.btn-purchase:hover {
-    background-color: #0b2d1f !important;
-}
-
-
 .footer{
     width: 100%;
     height: 5%;
