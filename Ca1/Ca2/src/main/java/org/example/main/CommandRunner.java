@@ -30,6 +30,7 @@ public class CommandRunner {
         commands.put("remove_cart", new RemoveCartCommand(shopService));
         commands.put("add_credit", new AddCreditCommand(userService));
         commands.put("purchase_cart", new PurchaseCartCommand(shopService));
+        commands.put("borrow_book", new PurchaseCartCommand(shopService));
 
 
         return commands;

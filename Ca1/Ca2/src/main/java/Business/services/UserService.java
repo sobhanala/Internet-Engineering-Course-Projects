@@ -42,7 +42,7 @@ public class UserService {
         if (!(p instanceof Customer customer)){
             throw new IllegalArgumentException("user not found");
         }
-        customer.AddCredit(transaction.credit());
+        customer.addCredit(transaction.credit());
 
     }
 

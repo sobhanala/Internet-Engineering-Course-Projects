@@ -29,7 +29,7 @@ public class ShopService {
         if (!(p instanceof Customer customer)){
             throw new IllegalArgumentException("user not found");
         }
-        customer.AddToCart(book.get());
+        customer.addToCart(book.get());
     }
     public void removeCart(PendPurches cart) {
         Optional<Book> book = bookRepository.findByTitle(cart.title());
@@ -47,7 +47,7 @@ public class ShopService {
             throw new IllegalArgumentException("User is not a customer");
         }
 
-        customer.RemoveFromCart(book.get());
+        customer.removeFromCart(book.get());
 
     }
     public Receipt  purchase(String username){
@@ -59,15 +59,41 @@ public class ShopService {
         if (!(p instanceof Customer customer)){
             throw new IllegalArgumentException("user not found");
         }
-        double total=customer.PurchaseCart();
+        double total=customer.purchaseCart();
         Receipt receipt = CreateReceipt(customer,total);
-        customer.EmptyCart();
+        customer.finalisePurchase();
         return receipt;
 
 
     }
     private Receipt CreateReceipt(Customer customer,double total ){
-        return new Receipt(customer.getCart().books.size(),total,new Date());
+        int buyedcount = customer.getCart().getBooks().size() - customer.getCart().getBorrowDetails().size();
+        return new Receipt(buyedcount,total,new Date());
     }
+    public void borrowBook(Borrowdata borrowdata) {
+        if (borrowdata.days() < 1 || borrowdata.days() > 9) {
+            throw new IllegalArgumentException("Invalid Date");
+        }
+
+        Optional<Person> personOpt = userRepository.findByUsername(borrowdata.username());
+        if (personOpt.isEmpty()) {
+            throw new IllegalArgumentException("user not found");
+        }
+        Person person = personOpt.get();
+        if (!(person instanceof Customer customer)) {
+            throw new IllegalArgumentException("user not found");
+        }
+
+        Optional<Book> bookOpt = bookRepository.findByTitle(borrowdata.title());
+        if (bookOpt.isEmpty()) {
+            throw new IllegalArgumentException("Book not found");
+        }
+        Book book = bookOpt.get();
+
+        customer.addBorrow(book, borrowdata.days());
+
+    }
+
+
 
 }

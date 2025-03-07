@@ -26,7 +26,8 @@ public class Mapper {
             default -> throw new IllegalArgumentException("Unsupported role: " + personDto.getRole());
         };
     }
-    public static Book toBookObject(BookDto bookDto){
+
+    public static Book toBookObject(BookDto bookDto) {
         if (bookDto == null) {
             throw new IllegalArgumentException("Invalid book data.");
         }
@@ -43,7 +44,8 @@ public class Mapper {
         );
 
     }
-    public static Author toAuthorObject(AuthorDto authorDto){
+
+    public static Author toAuthorObject(AuthorDto authorDto) {
         if (authorDto == null) {
             throw new IllegalArgumentException("Invalid author data.");
         }
@@ -66,7 +68,8 @@ public class Mapper {
                 addressDto.getCountry()
         );
     }
-    public static PendPurches ToPendPurches(CartDto cartDto){
+
+    public static PendPurches ToPendPurches(CartDto cartDto) {
         if (cartDto == null) {
             return null;
         }
@@ -76,7 +79,8 @@ public class Mapper {
         );
 
     }
-    public static Transaction ToTransaction(AddCreditDto creditDto){
+
+    public static Transaction ToTransaction(AddCreditDto creditDto) {
         if (creditDto == null) {
             return null;
         }
@@ -85,5 +89,16 @@ public class Mapper {
                 creditDto.getCredit()
         );
 
+    }
+
+    public static Borrowdata ToBorrowData(BorrowBookDto bookDto) {
+        if (bookDto == null) {
+            return null;
+        }
+        return new Borrowdata(
+                bookDto.getUsername(),
+                bookDto.getTitle(),
+                bookDto.getDays()
+        );
     }
 }
