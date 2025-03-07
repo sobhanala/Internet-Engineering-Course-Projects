@@ -32,7 +32,6 @@ public class Mapper {
             throw new IllegalArgumentException("Invalid book data.");
         }
         return new Book(
-                bookDto.getUsername(),
                 bookDto.getTitle(),
                 bookDto.getAuthor(),
                 bookDto.getPublisher(),
@@ -51,7 +50,6 @@ public class Mapper {
         }
 
         return new Author(
-                authorDto.getUsername(),
                 authorDto.getName(),
                 authorDto.getPenName(),
                 authorDto.getBorn(),

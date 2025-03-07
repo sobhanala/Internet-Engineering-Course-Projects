@@ -20,7 +20,8 @@ public class AddAuthorCommand implements ICommand {
             throw new IllegalArgumentException("Expected AuthorDto");
         }
         Author author = Mapper.toAuthorObject((AuthorDto) dto);
-        userService.addAuthor(author);
+        String username = ((AuthorDto) dto).getUsername();
+        userService.addAuthor(author,username);
         return new Response(true,"Removed book from cart.","");
     }
 

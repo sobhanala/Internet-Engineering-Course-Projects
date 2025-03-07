@@ -1,11 +1,10 @@
 package Business.commands;
 
 import Business.ICommand;
-import Business.services.UserService;
 import Business.models.Transaction;
+import Business.services.UserService;
 import Infrastucure.Mapper;
 import Objects.AddCreditDto;
-import Objects.CartDto;
 import Objects.Response;
 
 public class AddCreditCommand implements ICommand {
@@ -28,7 +27,7 @@ public class AddCreditCommand implements ICommand {
 
     @Override
     public Class<?> getDtoClass() {
-        return CartDto.class;
+        return AddCreditDto.class;
     }
 }
 

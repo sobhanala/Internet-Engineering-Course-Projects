@@ -31,6 +31,10 @@ public class CommandRunner {
         commands.put("add_credit", new AddCreditCommand(userService));
         commands.put("purchase_cart", new PurchaseCartCommand(shopService));
         commands.put("borrow_book", new PurchaseCartCommand(shopService));
+        commands.put("show_user_details", new ShowUserDetailCommand(userService));
+        commands.put("show_author_details", new ShowAuthorDetailCommand(userService));
+        commands.put("show_book_details", new ShowAuthorDetailCommand(userService));
+
 
 
         return commands;

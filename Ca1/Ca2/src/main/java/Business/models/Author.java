@@ -11,7 +11,6 @@ import java.util.Date;
 @ToString
 public class Author {
 
-    private String username;
     private String name;
     private String penName;
     private Date born;
@@ -20,8 +19,7 @@ public class Author {
     public Author() {
     }
 
-    public Author(String username, String name, String penName, Date born,Date died) {
-        this.username = username;
+    public Author(String name, String penName, Date born,Date died) {
         this.name = name;
         this.penName = penName;
         this.born = born;

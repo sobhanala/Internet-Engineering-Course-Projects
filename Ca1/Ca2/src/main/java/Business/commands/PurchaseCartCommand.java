@@ -2,7 +2,6 @@ package Business.commands;
 
 import Business.ICommand;
 import Business.services.ShopService;
-import Objects.CartDto;
 import Objects.PurchesDto;
 import Objects.Response;
 
@@ -25,7 +24,7 @@ public class PurchaseCartCommand implements ICommand {
 
     @Override
     public Class<?> getDtoClass() {
-        return CartDto.class;
+        return PurchesDto.class;
     }
 }
 

@@ -11,7 +11,6 @@ import java.util.List;
 @ToString
 public class Book {
 
-    private String username;
     private String title;
     private String author;
     private String publisher;
@@ -24,8 +23,7 @@ public class Book {
     public Book() {
     }
 
-    public Book(String username, String title, String author, String publisher, int year, long price, String synopsis, String content, List<String> genres) {
-        this.username = username;
+    public Book(String title, String author, String publisher, int year, long price, String synopsis, String content, List<String> genres) {
         this.title = title;
         this.author = author;
         this.publisher = publisher;

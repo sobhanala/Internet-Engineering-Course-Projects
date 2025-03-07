@@ -4,7 +4,6 @@ import Business.ICommand;
 import Business.services.ShopService;
 import Infrastucure.Mapper;
 import Objects.BorrowBookDto;
-import Objects.CartDto;
 import Objects.Response;
 
 public class BorrowBookCommand implements ICommand {
@@ -27,7 +26,7 @@ public class BorrowBookCommand implements ICommand {
 
     @Override
     public Class<?> getDtoClass() {
-        return CartDto.class;
+        return BorrowBookDto.class;
     }
 
 }

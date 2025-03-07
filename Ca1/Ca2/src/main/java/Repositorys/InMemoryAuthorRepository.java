@@ -9,13 +9,13 @@ public class InMemoryAuthorRepository implements AuthorRepository {
     private final List<Author> authorList = new ArrayList<>();
 
     public InMemoryAuthorRepository() {
-        authorList.add(new Author("defaultUsername", "defaultName", "defaultPenName", null, null));
+        authorList.add(new Author("defaultName", "defaultPenName", null, null));
     }
 
     @Override
     public Optional<Author> findByUsername(String username) {
         return authorList.stream()
-                .filter(a -> a.getUsername().equals(username))
+                .filter(a -> a.getName().equals(username))
                 .findAny();
     }
 
@@ -27,6 +27,6 @@ public class InMemoryAuthorRepository implements AuthorRepository {
     @Override
     public boolean existsByUsername(String username) {
         return authorList.stream()
-                .anyMatch(a -> a.getUsername().equals(username));
+                .anyMatch(a -> a.getName().equals(username));
     }
 }
