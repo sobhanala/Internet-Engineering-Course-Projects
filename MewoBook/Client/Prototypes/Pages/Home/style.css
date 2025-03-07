@@ -203,8 +203,11 @@ body{
 
 .footer{
     width: 100%;
-    background-color: #122F2A;
+    height: 5%;
+    background-color: rgba(22, 66, 60, 1);
+}
+
+.footer p{
     color: white;
-    font-size: small;
-    align-content: center;
+    font-size: medium;
 }

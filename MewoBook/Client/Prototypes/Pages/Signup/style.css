@@ -77,7 +77,7 @@
     width: 100%;
     position: absolute;
     bottom: 0;
-    background-color: #122F2A;
+    background-color: rgba(22, 66, 60, 1);
     color: white;
     height: 4%;
     font-size: small;
