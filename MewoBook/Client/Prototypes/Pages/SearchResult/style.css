@@ -118,23 +118,6 @@ body{
     border-color: #122F2A;
 }
 
-.intro-box{
-    background-color: rgba(245, 239, 231, 1);
-}
-
-.intro-content{
-    width: 100%;
-}
-
-.intro-txt{
-    width: 30%;
-}
-
-.intro-img{
-    width: 30%;
-    height: 70%;
-}
-
 .search-result-box{
     width: 76%;
 }
