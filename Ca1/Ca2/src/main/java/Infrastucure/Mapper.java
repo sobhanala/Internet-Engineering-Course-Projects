@@ -1,5 +1,6 @@
 package Infrastucure;
 
+import Business.exeptions.ShopException;
 import Business.models.*;
 import Objects.*;
 
@@ -7,7 +8,7 @@ public class Mapper {
 
     public static Person toPersonObject(PersonDto personDto) {
         if (personDto == null || personDto.getRole() == null) {
-            throw new IllegalArgumentException("Invalid person data or role is missing.");
+            throw new ShopException(ShopException.ErrorType.GENERIC_ERROR);
         }
 
         return switch (personDto.getRole().toLowerCase()) {
@@ -23,13 +24,13 @@ public class Mapper {
                     personDto.getEmail(),
                     toAddress(personDto.getAddress())
             );
-            default -> throw new IllegalArgumentException("Unsupported role: " + personDto.getRole());
+            default ->throw new ShopException(ShopException.ErrorType.GENERIC_ERROR);
         };
     }
 
     public static Book toBookObject(BookDto bookDto) {
         if (bookDto == null) {
-            throw new IllegalArgumentException("Invalid book data.");
+            throw new ShopException(ShopException.ErrorType.GENERIC_ERROR);
         }
         return new Book(
                 bookDto.getTitle(),
@@ -46,7 +47,7 @@ public class Mapper {
 
     public static Author toAuthorObject(AuthorDto authorDto) {
         if (authorDto == null) {
-            throw new IllegalArgumentException("Invalid author data.");
+                       throw new ShopException(ShopException.ErrorType.GENERIC_ERROR);
         }
 
         return new Author(
