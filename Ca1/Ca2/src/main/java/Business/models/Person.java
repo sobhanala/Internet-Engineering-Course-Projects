@@ -1,5 +1,6 @@
 package Business.models;
 
+import Business.exeptions.ShopException;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -26,7 +27,8 @@ public class Person {
 
     private void setUsername(String username) {
         if (username == null || username.isEmpty() || !USERNAME_PATTERN.matcher(username).matches()) {
-            throw new IllegalArgumentException("Invalid username: Only letters, numbers, '-', and '_' are allowed.");
+            throw new ShopException(ShopException.ErrorType.INVALID_USERNAME);
+
         }
 
         this.username = username;
@@ -34,21 +36,21 @@ public class Person {
 
     private void setPassword(String password) {
         if (password == null || password.length() < 4) {
-            throw new IllegalArgumentException("Invalid password: Must be at least 4 characters long.");
+            throw new ShopException(ShopException.ErrorType.INVALID_PASSWORD);
         }
         this.password = password;
     }
 
     private void setEmail(String email) {
         if (email == null || !EMAIL_PATTERN.matcher(email).matches()) {
-            throw new IllegalArgumentException("Invalid email: Must follow the format example@test.com.");
+            throw new ShopException(ShopException.ErrorType.INVALID_EMAIL);
         }
         this.email = email;
     }
 
     private void setAddress(Address address) {
         if (address == null || address.getCountry() == null || address.getCity() == null) {
-            throw new IllegalArgumentException("Invalid address: Country and city are required.");
+            throw new ShopException(ShopException.ErrorType.INVALID_ADDRESS);
         }
         this.address = address;
     }

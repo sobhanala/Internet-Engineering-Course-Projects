@@ -1,6 +1,7 @@
 package Business.commands;
 
 import Business.ICommand;
+import Business.exeptions.ShopException;
 import Business.services.BookService;
 import Business.models.Book;
 import Infrastucure.Mapper;
@@ -17,13 +18,13 @@ public class AddBookCommand implements ICommand {
     @Override
     public Response execute(Object dto) throws Exception {
         if (!(dto instanceof BookDto)) {
-            throw new IllegalArgumentException("Expected AuthorDto");
+            throw new ShopException(ShopException.ErrorType.GENERIC_ERROR);
         }
         Book book  = Mapper.toBookObject((BookDto) dto);
         String username  =((BookDto) dto).getUsername();
 
         bookService.addBook(book,username);
-        return new Response(true,"Removed book from cart.","");
+        return new Response(true,"Book added successfully.",null);
     }
 
     @Override

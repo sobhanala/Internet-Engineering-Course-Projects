@@ -22,7 +22,6 @@ public class Book {
 
     public Book() {
     }
-
     public Book(String title, String author, String publisher, int year, long price, String synopsis, String content, List<String> genres) {
         this.title = title;
         this.author = author;

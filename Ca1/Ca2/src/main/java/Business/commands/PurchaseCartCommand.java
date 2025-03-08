@@ -1,6 +1,7 @@
 package Business.commands;
 
 import Business.ICommand;
+import Business.exeptions.ShopException;
 import Business.services.ShopService;
 import Objects.PurchesDto;
 import Objects.Response;
@@ -15,7 +16,7 @@ public class PurchaseCartCommand implements ICommand {
     @Override
     public Response execute(Object dto) throws Exception {
         if (!(dto instanceof PurchesDto)) {
-            throw new IllegalArgumentException("Expected AuthorDto");
+            throw new ShopException(ShopException.ErrorType.GENERIC_ERROR);
         }
 
         String Username= ((PurchesDto) dto).getUsername();

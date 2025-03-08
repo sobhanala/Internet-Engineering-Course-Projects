@@ -1,10 +1,13 @@
 package Business.services;
 
+import Business.exeptions.ShopException;
 import Business.models.*;
 import Repositorys.AuthorRepository;
 import Repositorys.UserRepository;
 
 import java.util.Optional;
+
+import static Business.exeptions.ShopException.ErrorType.*;
 
 public class UserService {
     private final UserRepository userRepository;
@@ -18,15 +21,15 @@ public class UserService {
     public void addAuthor(Author author,String username) {
         Optional<Person> personOpt = userRepository.findByUsername(username);
         if (personOpt.isEmpty()) {
-            throw new IllegalArgumentException("User not found");
+            throw new ShopException(USER_NOT_FOUND);
         }
         Person person = personOpt.get();
         if (!(person instanceof Admin)){
-            throw new IllegalArgumentException("User not found");
+            throw new ShopException(USER_NOT_ADMIN);
         }
         boolean Exist = authorRepository.existsByUsername(author.getName());
         if (Exist) {
-            throw new IllegalArgumentException("Author already exists");
+            throw new ShopException(AUTHOR_ALREADY_EXISTS);
         }
         authorRepository.saveAuthor(author);
     }
@@ -34,7 +37,7 @@ public class UserService {
     public void addUser(Person person) {
         boolean Exist = userRepository.existsByUsernameAndEmail(person.getUsername(), person.getEmail());
         if (Exist) {
-            throw new IllegalArgumentException("User already exists");
+            throw new ShopException(USER_ALREADY_EXISTS);
         }
         userRepository.saveUser(person);
     }
@@ -59,24 +62,22 @@ public class UserService {
     public UserDetails getUserDetails(String username) {
         Optional<Person> personOpt = userRepository.findByUsername(username);
         if (personOpt.isEmpty()) {
-            throw new IllegalArgumentException("User not found");
+            throw new ShopException(USER_NOT_FOUND);
         }
         Person person = personOpt.get();
 
         String role;
-        long WalletBalance;
         if (person instanceof Customer) {
-            role = Customer.class.getName();
+            role = "Customer";
             return new UserDetails(
                     person.getUsername(),
                     role,
                     person.getEmail(),
                     person.getAddress(),
                     ((Customer) person).getWalletBalance()
-
             );
         } else if (person instanceof Admin) {
-            role = Admin.class.getName();
+            role = "Admin";
             return new UserDetails(
                     person.getUsername(),
                     role,
@@ -84,7 +85,7 @@ public class UserService {
                     person.getAddress()
             );
         } else {
-            role = Person.class.getName();
+            role ="Person";
             return new UserDetails(
                     person.getUsername(),
                     role,
@@ -104,4 +105,27 @@ public class UserService {
         return authorOptional.get();
 
     }
+
+    public bookContent getContent(String username,String title){
+        Optional<Person> personOpt = userRepository.findByUsername(username);
+        if (personOpt.isEmpty()) {
+            throw new IllegalArgumentException("User not found");
+        }
+        Person person = personOpt.get();
+        if (!(person instanceof Customer customer)){
+            throw new IllegalArgumentException("User not found");
+        }
+        Optional<Book> availableBookByTitle = customer.findAvailableBookByTitle(title);
+        if (availableBookByTitle.isEmpty()){
+            throw new IllegalArgumentException("User not found");
+        }
+        return new bookContent(availableBookByTitle.get().getTitle(),availableBookByTitle.get().getContent());
+
+
+    }
+
+
+
+
+    public record bookContent(String title,String content){}
 }
