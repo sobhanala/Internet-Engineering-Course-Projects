@@ -1,6 +1,7 @@
 package Business.commands;
 
 import Business.ICommand;
+import Business.exeptions.ShopException;
 import Business.models.Transaction;
 import Business.services.UserService;
 import Infrastucure.Mapper;
@@ -17,12 +18,12 @@ public class AddCreditCommand implements ICommand {
     @Override
     public Response execute(Object dto) throws Exception {
         if (!(dto instanceof AddCreditDto)) {
-            throw new IllegalArgumentException("Expected AuthorDto");
+            throw new ShopException(ShopException.ErrorType.GENERIC_ERROR);
         }
 
         Transaction transaction= Mapper.ToTransaction((AddCreditDto) dto);
         userService.addCredit(transaction);
-        return new Response(true,"Credit added successfully","");
+        return new Response(true,"Credit added successfully",null);
     }
 
     @Override
