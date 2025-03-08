@@ -30,12 +30,25 @@ public class CommandRunner {
         commands.put("remove_cart", new RemoveCartCommand(shopService));
         commands.put("add_credit", new AddCreditCommand(userService));
         commands.put("purchase_cart", new PurchaseCartCommand(shopService));
-        commands.put("borrow_book", new PurchaseCartCommand(shopService));
+        commands.put("borrow_book", new BorrowBookCommand(shopService));
         commands.put("show_user_details", new ShowUserDetailCommand(userService));
         commands.put("show_author_details", new ShowAuthorDetailCommand(userService));
-        commands.put("show_book_details", new ShowAuthorDetailCommand(userService));
 
+        commands.put("show_book_details", new ShowBookDetailCommand(bookService));
 
+        commands.put("show_book_content", new ShowBookContentCommand(userService));
+
+        commands.put("show_book_reviews", new ShowBookReviewCommand(bookService));
+
+        commands.put("show_cart", new ShowCartCommand(shopService));
+        commands.put("show_purchase_history", new ShowPurchesHistoryCommand(shopService));
+        commands.put("show_purchased_books", new ShowPurchasedBooks(shopService));
+        commands.put("search_books_by_title", new SearchByTitleCommand(bookService));
+        commands.put("search_books_by_author", new SearchByAhthorCommand(bookService));
+        commands.put("search_books_by_genre", new SearchByGenreCommand(bookService));
+        commands.put("search_books_by_year", new SearchByDateCommand(bookService));
+
+        commands.put("add_review", new AddReviewCommand(bookService));
 
         return commands;
     }
@@ -50,7 +63,7 @@ public class CommandRunner {
         }
     }
 
-    private void processCommand(String line) {
+    public void processCommand(String line) {
         int spaceIndex = line.indexOf(" ");
         String commandName = (spaceIndex == -1) ? line : line.substring(0, spaceIndex);
         String jsonInput = (spaceIndex == -1) ? "{}" : line.substring(spaceIndex + 1);

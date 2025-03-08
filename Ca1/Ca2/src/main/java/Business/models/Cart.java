@@ -1,5 +1,6 @@
 package Business.models;
 
+import Business.exeptions.ShopException;
 import lombok.Getter;
 import lombok.ToString;
 import java.util.ArrayList;
@@ -10,15 +11,21 @@ import java.util.List;
 public class Cart {
     private final List<Book> books = new ArrayList<>();
     private final List<BorrowDetails> borrowDetails = new ArrayList<>();
-
+    private static final int MAX_ITEMS = 10;
     public void addToCart(Book book) {
+        if (books.size() >= MAX_ITEMS) {
+            throw new ShopException(ShopException.ErrorType.CART_FULL);
+        }
         books.add(book);
-        borrowDetails.add(new BorrowDetails(book, 0)); // 0 days = regular purchase
+        borrowDetails.add(new BorrowDetails(book, 0,false,book.getPrice()));
     }
 
     public void addBorrowedBook(Book book, int days) {
+        if (books.size() >= MAX_ITEMS) {
+            throw new ShopException(ShopException.ErrorType.CART_FULL);
+        }
         books.add(book);
-        borrowDetails.add(new BorrowDetails(book, days));
+        borrowDetails.add(new BorrowDetails(book, days,true,days*book.getPrice()));
     }
 
     public void removeFromCart(Book book) {
