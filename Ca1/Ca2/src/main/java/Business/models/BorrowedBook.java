@@ -2,4 +2,4 @@ package Business.models;
 
 import java.time.LocalDateTime;
 
-record BorrowedBook(Book book, LocalDateTime expiration) {}
+public record BorrowedBook(Book book, LocalDateTime expiration) {}

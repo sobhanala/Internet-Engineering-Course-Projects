@@ -1,6 +1,7 @@
 package Business.commands;
 
 import Business.ICommand;
+import Business.exeptions.ShopException;
 import Business.services.ShopService;
 import Infrastucure.Mapper;
 import Objects.BorrowBookDto;
@@ -16,12 +17,12 @@ public class BorrowBookCommand implements ICommand {
     @Override
     public Response execute(Object dto) throws Exception {
         if (!(dto instanceof BorrowBookDto)) {
-            throw new IllegalArgumentException("Expected AuthorDto");
+            throw new ShopException(ShopException.ErrorType.GENERIC_ERROR);
         }
 
         var borrowdata= Mapper.ToBorrowData((BorrowBookDto) dto);
         shopService.borrowBook(borrowdata);
-        return new Response(true,"Purchase completed successfully",null);
+        return new Response(true,"Added borrowed book to cart.",null);
     }
 
     @Override
