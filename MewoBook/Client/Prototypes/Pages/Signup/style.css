@@ -1,0 +1,86 @@
+.signup-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+}
+
+.signup-box {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 680px;
+    height:660px;
+    scale: 0.84;
+}
+
+.btn-outline-primary {
+    border-color: #16423C;
+    color: #16423C;
+}
+
+.btn-check:checked + .btn-outline-primary {
+    background-color: #F5EFE7;
+    color: #16423C;
+    border-color: #16423C;
+}
+
+.btn-check:not(:checked) + .btn-outline-primary {
+    background-color: rgba(247, 249, 251, 1);
+    border: none;
+    color: #16423C;
+}
+
+.btn-primary {
+    background-color: #16423C;
+    border-color: #16423C;
+    width: 80%;
+}
+
+.btn-primary:hover {
+    background-color: #122F2A;
+    border-color: #122F2A;
+}
+
+.signup-btn{
+    align-self: center;
+    width: 82%;
+}
+
+.input-field{
+    width: 80%;
+    align-self: center;
+}
+
+.row-field{
+    align-self: center;
+    width: 85%;
+}
+
+.have-acc-txt{
+    color:rgba(0, 0, 0, 0.4);
+}
+
+.signIn-link{
+    color: #122F2A;
+    text-decoration: none;
+}
+
+::placeholder {
+    color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.footer{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    background-color: rgba(22, 66, 60, 1);
+    color: white;
+    height: 4%;
+    font-size: small;
+    align-content: center;
+}
+
