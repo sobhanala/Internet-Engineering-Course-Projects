@@ -18,7 +18,7 @@ public class ShowUserDetailCommand implements ICommand {
             throw new IllegalArgumentException("Expected PersonDto");
         }
         String username= ((PurchesDto) dto).getUsername();
-        return new Response(true,"Added user."
+        return new Response(true,"User details retrieved successfully"
                 ,userService.getUserDetails(username));
 
     }
