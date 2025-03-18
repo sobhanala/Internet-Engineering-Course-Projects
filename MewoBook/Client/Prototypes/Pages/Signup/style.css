@@ -1,0 +1,23 @@
+* {
+    width: 100%;
+    height: 100%;
+}
+
+.signup-page{
+    width: 100%;
+    height: 100%;
+    background-color: #F7F9FB;
+}
+
+.signup-container{
+    height: 30%;
+    width: 30%;
+    background-color: white;
+}
+
+.footer{
+    height: 46px;
+    background-color: #16423C;
+    position: fixed;
+    bottom: 0;
+}
